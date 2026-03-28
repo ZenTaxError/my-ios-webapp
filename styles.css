@@ -1,0 +1,7 @@
+.chat{max-width:720px;margin:1rem auto;padding:1rem;border-radius:8px;min-height:60vh;background:#fff;overflow:auto}
+.msg{padding:.6rem .8rem;margin:.4rem 0;border-radius:8px;max-width:85%}
+.msg.user{background:#007aff;color:#fff;margin-left:auto}
+.msg.assistant{background:#f1f1f1;color:#000;margin-right:auto}
+form{display:flex;gap:.5rem;padding:1rem;max-width:720px;margin:0 auto}
+input{flex:1;padding:.6rem;border-radius:8px;border:1px solid #ddd}
+button{padding:.6rem 1rem;border-radius:8px;background:#007aff;color:#fff;border:0}
