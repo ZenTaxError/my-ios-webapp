@@ -24,12 +24,15 @@ form.addEventListener("submit", async (e) => {
   const placeholder = chatEl.lastElementChild;
 
   try {
-    const res = await fetch("/.netlify/functions/chat", {
+    const res = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages: history }),
     });
     const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data?.error || "API request failed");
+    }
     const reply = data.choices?.[0]?.message?.content || "No response";
     placeholder.textContent = reply;
     history.push({ role: "assistant", content: reply });
