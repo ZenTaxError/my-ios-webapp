@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>My iOS Web App</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="My iOS Web App" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main>
+    <h1>My iOS Web App</h1>
+    <p>This page is optimized to be added to an iOS Home Screen.</p>
+    <button id="show-install">Show install instructions</button>
+  </main>
+
+  <div id="install-instructions" class="hidden" aria-hidden="true">
+    <p>To add to Home Screen on iOS:</p>
+    <ol>
+      <li>Open this page in Safari.</li>
+      <li>Tap the Share button (box with arrow).</li>
+      <li>Select "Add to Home Screen".</li>
+    </ol>
+    <button id="close-instructions">Close</button>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

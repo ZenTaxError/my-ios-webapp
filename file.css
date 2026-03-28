@@ -1,0 +1,6 @@
+:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+body{margin:0;padding:2rem;background:#f7fafc;color:#111;min-height:100vh;display:flex;align-items:center;justify-content:center}
+main{max-width:640px;text-align:center}
+button{padding:.6rem 1rem;border:0;background:#007aff;color:#fff;border-radius:8px;font-size:1rem}
+.hidden{display:none}
+#install-instructions{position:fixed;left:12px;right:12px;top:10vh;background:#fff;padding:1rem;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
