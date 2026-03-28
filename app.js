@@ -30,11 +30,14 @@ form.addEventListener("submit", async (e) => {
       body: JSON.stringify({ messages: history }),
     });
     const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data?.error || "API request failed");
+    }
     const reply = data.choices?.[0]?.message?.content || "No response";
     placeholder.textContent = reply;
     history.push({ role: "assistant", content: reply });
   } catch (err) {
-    placeholder.textContent = "Error contacting API";
+    placeholder.textContent = err.message || "Error contacting API";
     console.error(err);
   }
 });

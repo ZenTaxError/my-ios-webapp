@@ -1,38 +1,37 @@
-export const handler = async (event) => {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: JSON.stringify({ error: "Method Not Allowed" }) };
+import OpenAI from "openai";
+
+const openai = new OpenAI();
+
+export default async (req) => {
+  if (req.method !== "POST") {
+    return Response.json({ error: "Method Not Allowed" }, { status: 405 });
   }
 
   try {
-    const { messages } = JSON.parse(event.body || "{}");
+    const { messages } = await req.json();
     if (!Array.isArray(messages) || messages.length === 0) {
-      return { statusCode: 400, body: JSON.stringify({ error: "messages required" }) };
+      return Response.json({ error: "messages required" }, { status: 400 });
     }
 
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages,
-        max_tokens: 800,
-      }),
+    const completion = await openai.chat.completions.create({
+      model: "gpt-5.2",
+      messages,
+      max_completion_tokens: 800,
     });
 
-    const data = await res.json();
-    if (!res.ok) {
-      return {
-        statusCode: res.status,
-        body: JSON.stringify({ error: data?.error?.message || "Upstream API error" }),
-      };
+    return Response.json(completion);
+  } catch (err) {
+    const upstreamStatus = err?.status;
+    const upstreamMessage = err?.error?.message || err?.message;
+
+    if (typeof upstreamStatus === "number") {
+      return Response.json(
+        { error: upstreamMessage || "Upstream API error" },
+        { status: upstreamStatus },
+      );
     }
 
-    return { statusCode: 200, body: JSON.stringify(data) };
-  } catch (err) {
     console.error(err);
-    return { statusCode: 500, body: JSON.stringify({ error: "Internal Server Error" }) };
+    return Response.json({ error: "Internal Server Error" }, { status: 500 });
   }
 };
